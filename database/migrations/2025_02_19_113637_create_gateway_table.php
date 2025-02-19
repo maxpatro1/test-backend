@@ -11,11 +11,13 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('patients', function (Blueprint $table) {
+        Schema::create('gateways', function (Blueprint $table) {
             $table->id();
-            $table->string('first_name');
-            $table->string('second_name');
-            $table->date('birthdate');
+            $table->string('name')->unique();
+            $table->string('merchant_id')->nullable();
+            $table->string('merchant_key')->nullable();
+            $table->integer('limit');
+            $table->integer('current_amount')->default(0);
             $table->timestamps();
         });
     }
@@ -25,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('patient');
+        Schema::dropIfExists('gateways');
     }
 };
